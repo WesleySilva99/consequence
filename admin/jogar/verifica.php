@@ -20,8 +20,6 @@
 
 	}
 
-
-
 	$sql = "SELECT id_pergunta FROM jogador_partida_pergunta WHERE id_jogador = ? AND rodada = ?";
 
 	$execucao = $conexao->prepare($sql);

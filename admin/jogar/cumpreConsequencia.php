@@ -6,21 +6,24 @@
 	$pergunta = $_POST['pergunta'];
 	$partida = $_POST['partida'];
 	$rodada = $_POST['rodada'];
+	$consequencia = $_POST['consequencia'];
 
-	//try {
+	try {
 			
-		$sql = "insert into jogador_partida_pergunta(id_jogador, id_partida, id_pergunta, is_consequence, rodada) values(?, ?, ?, ?, ?)";
+		$sql = "insert into jogador_partida_pergunta(id_jogador, id_partida, id_pergunta, is_consequence, id_consequencia, rodada) values(?, ?, ?, ?, ?, ?)";
 
 		$stmt = $conexao->prepare($sql);
 
 		$stmt->bindValue(1, $jogador);
 		$stmt->bindValue(2, $partida);
 		$stmt->bindValue(3, $pergunta);
-		$stmt->bindValue(4, 0);
-		$stmt->bindValue(5, $rodada);
+		$stmt->bindValue(4, 1);
+		$stmt->bindValue(5, $consequencia);
+		$stmt->bindValue(6, $rodada);
 
-		$stmt->execute();
+		//$stmt->execute();
 
+		
 		$queryJogadores;
 		$redirect;
 
@@ -44,22 +47,22 @@
 
 
 			}
-
 			$redirect = "verifica.php";
 			
 		}else{
 
-			$_SESSION['rodada']++;
 			$sql = "update partida set rodada = ? where id = ?";
 
 			$stmt = $conexao->prepare($sql);
 
-			$stmt->bindValue(1, $_SESSION['rodada']);
-			$stmt->bindValue(2, $partida);
+			$_SESSION['rodada']++;
+
+			$stmt->bindValue(1, $partida);
+			$stmt->bindValue(2, $_SESSION['rodada']);
 
 			$stmt->execute();
 
-			$queryJogadores = "select j.* from jogador j left join partida_jogador pj on j.id = pj.id_jogador where pj.id_partida = ? ORDER BY j.id";
+			$queryJogadores = "select j.* from jogador j left join partida_jogador pj on j.id = pj.id_jogador where pj.id_partida = ?";
 
 			$execucao = $conexao->prepare($queryJogadores);
 			$execucao->bindParam(1, $partida);
@@ -71,13 +74,19 @@
 				$_SESSION['atual'] = $row['id'];
 				break;
 			}
+
 			$redirect = "finaliza.php";
-			
+
 		}
 		
 		header("Location: ".$redirect);
-	//} catch (Exception $e) {
-	//	header("Location: /index.php");		
-	//}
+		
+
+	} catch (Exception $e) {
+
+		$msg = "Ocorreu algum erro na sua partida!";
+
+		header("Location: /index.php?msg=".$msg);		
+	}
 	
 ?>

@@ -15,7 +15,7 @@
 	$cont = 1;
 
 	foreach($volta as $row){
-		$nomes[$row['id']] = $row['nome'];
+		$nomes[$cont] = $row['nome'];
 		$ids[$cont] = $row['id'];
 		$cont++;
 	}
@@ -24,6 +24,8 @@
 
 	$pergunta = $_SESSION['perguntaAtual'];
 	$idPergunta = $_SESSION['idPerguntaAtual'];
+	
+	
 
 
 ?>
@@ -62,56 +64,27 @@
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
 			<div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
-				
-					<span class="login100-form-title p-b-53">
-						RODADA <?=$_SESSION['rodada'];?>
-						<br>
-						Jogadores: 
-						<?php
-
-							
-							foreach ($nomes as $jogador) {
-								
-								
-								echo $jogador.'; ';
-
-							}
-
-						?>
-					</span>
-					<span class="login100-form-title p-b-53">
-						Atual: <?=$nomes[$_SESSION['atual']];?>
-						
-					</span>
 					
 					<div class="p-t-31 p-b-9">
 						<span class="txt1">
 							<h2>
-								Pergunta: <?=$pergunta;?>
+								Finalizar Partida?
 							</h2>
 						</span>
 					</div>
 					<center>
 					<div class="container-login100-form-btn m-t-17">
-						<form method="POST" action="/jogar/respondeu.php">
-							<input type="hidden" name="pergunta" value="<?=$idPergunta?>">
-							<input type="hidden" name="jogador" value="<?=$idAtual;?>">
-							<input type="hidden" name="partida" value="<?=$_SESSION['pId'];?>">
-							<input type="hidden" name="rodada" value="<?=$_SESSION['rodada'];?>">
+						<form method="POST" action="/jogar/verifica.php">
 							
 							<button type="submit" class="btn-success btn-lg">
-								Verdade
+								Continuar
 							</button>
 						</form>
 						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-						<form method="POST" action="/jogar/verificaConsequencia.php">
-							<input type="hidden" name="pergunta" value="<?=$idPergunta?>">
-							<input type="hidden" name="jogador" value="<?=$idAtual;?>">
-							<input type="hidden" name="partida" value="<?=$_SESSION['pId'];?>">
-							<input type="hidden" name="rodada" value="<?=$_SESSION['rodada'];?>">
+						<form method="POST" action="/jogar/finalizaPartida.php">
 							
 							<button type="submit" class="btn-danger btn-lg">
-								Consequência
+								Finalizar
 							</button>
 						</form>
 					</div>

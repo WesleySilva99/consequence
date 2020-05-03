@@ -14,7 +14,7 @@
                                 <div class="account-wrap">
                                     <div class="account-item clearfix js-item-menu">
                                         <div class="image">
-                                            <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                           
                                         </div>
                                         <div class="content">
                                             <a class="js-acc-btn" href="#"><?=$_SESSION['nome'];?></a>
