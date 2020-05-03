@@ -81,16 +81,17 @@ if (!isset($_SESSION['admin'])) {
             <div class="table-data__tool">
 
                 <div class="table-responsive table-responsive-data2">
-                    <table class="table table-data2">
+                    <table class="table table-data2 responsive-table">
                         <thead>
                             <tr>
 
                                 <th>Descrição</th>
+                                <th>Ações</th>
                                 <th>Jogadores</th>
-                                <th>Nível</th>
                             </tr>
                         </thead>
                         <tbody>
+                                                        
                             <?php
 
                             $sql = "select * from partida where id_usuario = ?";
@@ -107,6 +108,25 @@ if (!isset($_SESSION['admin'])) {
 
                                     <td><?=$linha['descricao'];?></td>
                                     <td>
+                                        <div class="table-data-feature">
+                                            
+                                            <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Jogar" onclick="window.open('/jogar/jogar.php?partida=<?=$linha['id']?>')">
+                                                <i class="zmdi zmdi-mail-send"></i>
+                                            </button>
+                                            
+                                            <a href="/entraNaPartida.php?id=<?=$linha['id'];?>">
+                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Adicionar Jogador" data-original-title="Adicionar Jogador">
+                                                <i class="zmdi zmdi-edit"></i>
+                                            </button>
+                                            </a>
+                                            <a href="/partida/delete.php?id=<?=$linha['id'];?>">
+                                                <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
+                                                    <i class="zmdi zmdi-delete"></i>
+                                                </button>
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td>
                                         <?php
 
                                         $query = "select j.* from jogador j left join partida_jogador pj on j.id = pj.id_jogador where pj.id_partida = ?";
@@ -122,61 +142,11 @@ if (!isset($_SESSION['admin'])) {
                                             <?php
                                         }
                                         ?>
-
-                                    </td>
-                                    <td>
-                                            
-                                        <?php
-
-                                            switch ($linha['nivel']) {
-                                                case 1:
-                                                    echo "Básico";
-                                                    break;
-                                                case 2:
-                                                    echo "Médio";
-                                                    break;
-                                                case 3:
-                                                    echo "Pesado";
-                                                    break;
-                                                case 4:
-                                                    echo "Festinha";
-                                                    break;
-                                                case 5:
-                                                    echo "PUTARIAAAA";
-                                                    break;
-                                            }
-
-                                        ?>
-
-                                    </td>
-                                    
-                                    <td>
-                                        <div class="table-data-feature">
-                                            
-                                            <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Jogar" onclick="window.open('/jogar.php?partida=<?=$linha['id']?>')">
-                                                <i class="zmdi zmdi-mail-send"></i>
-                                            </button>
-                                            
-                                            <a href="/entraNaPartida.php?id=<?=$linha['id'];?>">
-                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Adicionar Jogador" data-original-title="Adicionar Jogador">
-                                                <i class="zmdi zmdi-edit"></i>
-                                            </button>
-                                            </a>
-                                            <a href="/partida/delete.php?id=<?=$linha['id'];?>">
-                                                <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
-                                                    <i class="zmdi zmdi-delete"></i>
-                                                </button>
-                                            </a>
-                                            <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="More">
-                                                <i class="zmdi zmdi-more"></i>
-                                            </button>
-                                        </div>
-                                    </td>
+                                    </td>                                    
                                 </tr>
                                 <?php
                             }
                             ?>
-
                         </tbody>
                     </table>
                 </div>

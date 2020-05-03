@@ -6,7 +6,7 @@
 
 	require ($_SERVER["DOCUMENT_ROOT"].'/util/conexao.php');
 
-	$sql = "insert into partida (descricao, nivel, id_usuario) values(?, ?, ?);";
+	$sql = "insert into partida (descricao, nivel, id_usuario, rodada) values(?, ?, ?, ?);";
 
 	try{
 
@@ -15,6 +15,7 @@
 		$stmt->bindValue(1, $desc);
 		$stmt->bindValue(2, $nivel);
 		$stmt->bindValue(3, $_SESSION['id']);
+		$stmt->bindValue(4, 1);
 
 		$stmt->execute();
 			header("Location: /");

@@ -66,14 +66,11 @@
      <?php
 
      include 'header.php';
+     include 'headerDesktop.php';
      include 'menuLateral.php';
 
-     ?>
 
-     
-        <?php
-         include 'headerDesktop.php';
-         ?>
+     ?>
 
      <!-- PAGE CONTAINER-->
      <div class="page-container">

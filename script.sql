@@ -40,7 +40,8 @@ create table partida(
 	id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	descricao varchar(255) NOT NULL,
 	nivel int,
-	id_usuario int
+	id_usuario int,
+	rodada int
 );
 
 create table partida_jogador(
@@ -53,5 +54,6 @@ create table jogador_partida_pergunta(
 	id_partida int,	
 	id_pergunta int
 	is_consequence tinyint,
-	id_consequencia
+	id_consequencia int,
+	rodada int
 );

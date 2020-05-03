@@ -4,7 +4,7 @@
                 <div class="container-fluid">
                     <div class="header-mobile-inner">
                         <a class="logo" href="index.html">
-                            <img src="images/icon/logo.png" alt="CoolAdmin" />
+                            <img src="/login/images/logo.jpeg" width="100px" height="40px" alt="CoolAdmin" />
                         </a>
                         <button class="hamburger hamburger--slider" type="button">
                             <span class="hamburger-box">
@@ -19,22 +19,75 @@
                     <ul class="navbar-mobile__list list-unstyled">
                         <li class="has-sub">
                             <a class="js-arrow" href="#">
-                                <i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                                <i class="fas fa-tachometer-alt"></i>Partida</a>
                             <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                                <?php
+
+                                $sql = 'select * from partida where id_usuario = ?';
+
+                                $stmt = $conexao->prepare($sql);
+                                $stmt->bindParam(1, $_SESSION['id']);
+                                $stmt->execute();   
+                                $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                                foreach ($resultado as $linha) {
+                                    ?>
+
+                                    <li>
+                                        <a href="#" onclick="window.open('/jogar/jogar.php?partida=<?=$linha['id']?>')" style='color: black'>
+                                            <?=$linha['descricao']?>
+                                        </a>
+                                    </li>
+                                    <?php 
+                                }
+                                ?>
                                 <li>
-                                    <a href="index.html">Dashboard 1</a>
-                                </li>
-                                <li>
-                                    <a href="index2.html">Dashboard 2</a>
-                                </li>
-                                <li>
-                                    <a href="index3.html">Dashboard 3</a>
-                                </li>
-                                <li>
-                                    <a href="index4.html">Dashboard 4</a>
+                                    <a href="/criarPartida.php">Criar uma nova partida</a>
                                 </li>
                             </ul>
                         </li>
+                        <li>
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-chart-bar"></i>Jogadores</a>
+                            <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                                <li>
+                                    <a href="/cadastrarJogador.php">Adicionar jogadores a conta</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <?php
+
+                            if ($_SESSION['admin'] == 1) {
+
+                        ?>
+                        <li>
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-chart-bar"></i>Perguntas</a>
+                            <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                                <li>
+                                    <a href="/criarPergunta.php">Adicionar pergunta</a>
+                                </li>
+                                <li>
+                                    <a href="/pergntas.php">Listar Perguntas</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-chart-bar"></i>Consequências</a>
+                            <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                                <li>
+                                    <a href="/cadastraConsequencia.php">Adicionar Consequência</a>
+                                </li>
+                                <li>
+                                    <a href="/pergntas.php">Listar Consequencias</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <?php 
+                        }
+                        ?>
+                        <!--
                         <li>
                             <a href="chart.html">
                                 <i class="fas fa-chart-bar"></i>Charts</a>
@@ -109,6 +162,7 @@
                                 </li>
                             </ul>
                         </li>
+                        -->
                     </ul>
                 </div>
             </nav>
