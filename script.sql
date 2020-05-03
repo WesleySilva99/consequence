@@ -47,3 +47,11 @@ create table partida_jogador(
 	id_jogador int,
 	id_partida int
 );
+
+create table jogador_partida_pergunta(
+	id_jogador int,
+	id_partida int,	
+	id_pergunta int
+	is_consequence tinyint,
+	id_consequencia
+);
