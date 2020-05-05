@@ -108,23 +108,42 @@ if (!isset($_SESSION['admin'])) {
 
                                     <td><?=$linha['descricao'];?></td>
                                     <td>
-                                        <div class="table-data-feature">
-                                            
-                                            <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Jogar" onclick="window.open('/jogar/jogar.php?partida=<?=$linha['id']?>')">
-                                                <i class="zmdi zmdi-mail-send"></i>
-                                            </button>
-                                            
-                                            <a href="/entraNaPartida.php?id=<?=$linha['id'];?>">
-                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Adicionar Jogador" data-original-title="Adicionar Jogador">
-                                                <i class="zmdi zmdi-edit"></i>
-                                            </button>
-                                            </a>
-                                            <a href="/partida/delete.php?id=<?=$linha['id'];?>">
-                                                <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
-                                                    <i class="zmdi zmdi-delete"></i>
+                                        <center>
+                                            <div class="table-data-feature">
+                                                
+                                                <?php
+                                                    if($linha['finalizada'] != 1){
+                                                ?>
+
+                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Jogar" onclick="window.open('/jogar/jogar.php?partida=<?=$linha['id']?>')">
+                                                    <i class="zmdi zmdi-mail-send"></i>
+                                                    </button>
+
+                                                <?php
+                                                    }else {
+                                                ?>
+
+                                                <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver Resultados" onclick="window.open('/jogar/finalizada.php?partida=<?=$linha['id']?>')">
+                                                    <i class="zmdi zmdi-mail-send"></i>
                                                 </button>
-                                            </a>
-                                        </div>
+
+                                                <?php
+                                                    }
+                                                ?>
+                                                
+                                                
+                                                <a href="/entraNaPartida.php?id=<?=$linha['id'];?>">
+                                                <button class="item" data-toggle="tooltip" data-placement="top" title="Adicionar Jogador" data-original-title="Adicionar Jogador">
+                                                    <i class="zmdi zmdi-edit"></i>
+                                                </button>
+                                                </a>
+                                                <a href="/partida/delete.php?id=<?=$linha['id'];?>">
+                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
+                                                        <i class="zmdi zmdi-delete"></i>
+                                                    </button>
+                                                </a>
+                                            </div>
+                                        </center>
                                     </td>
                                     <td>
                                         <?php

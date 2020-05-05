@@ -24,8 +24,9 @@ create table jogador(
 create table pontuacao(
 	id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	consequencias int,
-	perguntas int,
-	jogador int
+	verdades int,
+	jogador int,
+	partida int
 );
 
 create table usuario(
@@ -41,7 +42,8 @@ create table partida(
 	descricao varchar(255) NOT NULL,
 	nivel int,
 	id_usuario int,
-	rodada int
+	rodada int,
+	finalizada tinyint;
 );
 
 create table partida_jogador(

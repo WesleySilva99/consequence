@@ -7,9 +7,13 @@
 	$partida = $_POST['partida'];
 	$rodada = $_POST['rodada'];
 
-	//try {
+	try {
 			
 		$sql = "insert into jogador_partida_pergunta(id_jogador, id_partida, id_pergunta, is_consequence, rodada) values(?, ?, ?, ?, ?)";
+
+		$sqlPontuacao = "update pontuacao set verdades = ? where jogador = ? and partida = ?";
+
+		$queryPontuacao = "SELECT verdades FROM pontuacao where jogador = ?";
 
 		$stmt = $conexao->prepare($sql);
 
@@ -20,6 +24,25 @@
 		$stmt->bindValue(5, $rodada);
 
 		$stmt->execute();
+
+		$stmt = $conexao->prepare($queryPontuacao);
+
+		$stmt->bindValue(1, $jogador);
+
+		$stmt->execute();
+
+		$verdades = $stmt->fetch();
+
+		$verdades['verdades']++;
+
+		$stmt = $conexao->prepare($sqlPontuacao);
+
+		$stmt->bindValue(1, $verdades['verdades']);
+		$stmt->bindValue(2, $jogador);
+		$stmt->bindValue(3, $partida);
+
+		$stmt->execute();
+
 
 		$queryJogadores;
 		$redirect;
@@ -71,13 +94,13 @@
 				$_SESSION['atual'] = $row['id'];
 				break;
 			}
-			$redirect = "finaliza.php";
+			$redirect = "finalizaPartida.php";
 			
 		}
 		
 		header("Location: ".$redirect);
-	//} catch (Exception $e) {
-	//	header("Location: /index.php");		
-	//}
+	} catch (Exception $e) {
+		header("Location: /index.php");		
+	}
 	
 ?>

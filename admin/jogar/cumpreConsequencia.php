@@ -12,6 +12,10 @@
 			
 		$sql = "insert into jogador_partida_pergunta(id_jogador, id_partida, id_pergunta, is_consequence, id_consequencia, rodada) values(?, ?, ?, ?, ?, ?)";
 
+		$sqlPontuacao = "UPDATE pontuacao SET consequencias = ? WHERE jogador = ? AND partida = ?";
+
+		$queryPontuacao = "SELECT consequencias FROM pontuacao WHERE jogador = ? AND partida = ?";
+
 		$stmt = $conexao->prepare($sql);
 
 		$stmt->bindValue(1, $jogador);
@@ -21,7 +25,26 @@
 		$stmt->bindValue(5, $consequencia);
 		$stmt->bindValue(6, $rodada);
 
-		//$stmt->execute();
+		$stmt->execute();
+
+		$stmt = $conexao->prepare($queryPontuacao);
+
+		$stmt->bindValue(1, $jogador);
+		$stmt->bindValue(2, $partida);
+
+		$stmt->execute();
+
+		$consequencias = $stmt->fetch();
+
+		$consequencias['consequencias']++;
+
+		$stmt = $conexao->prepare($sqlPontuacao);
+
+		$stmt->bindValue(1, $consequencias['consequencias']);
+		$stmt->bindValue(2, $jogador);
+		$stmt->bindValue(3, $partida);
+
+		$stmt->execute();
 
 		
 		$queryJogadores;
@@ -75,7 +98,7 @@
 				break;
 			}
 
-			$redirect = "finaliza.php";
+			$redirect = "finalizaPartida.php";
 
 		}
 		
