@@ -43,7 +43,7 @@ create table partida(
 	nivel int,
 	id_usuario int,
 	rodada int,
-	finalizada tinyint;
+	finalizada tinyint
 );
 
 create table partida_jogador(
@@ -53,9 +53,9 @@ create table partida_jogador(
 
 create table jogador_partida_pergunta(
 	id_jogador int,
-	id_partida int,	
-	id_pergunta int
-	is_consequence tinyint,
+	id_partida int,
+	id_pergunta int,
+	id_consequence tinyint,
 	id_consequencia int,
 	rodada int
 );

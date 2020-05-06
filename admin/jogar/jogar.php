@@ -3,6 +3,8 @@
 	session_start();
 	include '../util/conexao.php';
 
+
+
 	try {
 		
 		$query = "select * from partida where id = ?";
@@ -11,10 +13,10 @@
 		$execucao->bindParam(1, $_GET['partida']);
 		$execucao->execute();   
 		$volta = $execucao->fetchAll(PDO::FETCH_ASSOC);
-		$partida;
-		$nivel;
-		$pId;
-		$rodada;
+		$partida = 0;
+		$nivel = 0;
+        $pId = 0;
+		$rodada = 0;
 		
 		
 		foreach ($volta as $row) {
@@ -29,6 +31,7 @@
 		$_SESSION['partida'] = $partida;
 		$_SESSION['nivel'] = $nivel;
 		$_SESSION['rodada'] = $rodada;
+        $_SESSION['total'] = count($volta);
 
 		$query = "select max(id_jogador) as id from partida_jogador where id_partida = ?";
 		$execucao = $conexao->prepare($query);
@@ -104,7 +107,7 @@
 			break;
 		}
 		
-		$_SESSION['total'] = count($volta);
+
 		
 		header("Location: verifica.php");
 
@@ -112,5 +115,5 @@
 		echo $e->getMessage();
 		header("Location: /index.php?msg=".$msg);	
 	}
-	
+
 ?>

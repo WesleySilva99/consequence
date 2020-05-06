@@ -12,6 +12,11 @@
 	$stmt->bindParam(1, $email);
 	$stmt->execute();	
 	$resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+	if(count($resultado) == 0){
+        $msg = "Login ou senhas Incorreto(s)!";
+        header("Location: index.php?msg=".$msg);
+    }
 	
 	foreach($resultado as $linha){
 	
@@ -27,7 +32,7 @@
 			header("Location: ".'/index.php');
 		}else{
 			$msg = "Login ou senhas Incorreto(s)!";
-			header("Location: /login/index.php?msg=".$msg);
+			header("Location: index.php?msg=".$msg);
 		}
 	}
 	}	catch(PDOException $e){
