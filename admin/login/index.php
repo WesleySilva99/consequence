@@ -5,7 +5,7 @@
 
 	session_start();
 		
-	 //include 'conexao.php';
+
 	 if (isset($_SESSION['admin'])) {
 		# code...
 		header("Location:/");
@@ -132,6 +132,24 @@
 								Login
 							</button>
 						</div>
+
+                        <?php
+
+                            if(isset($_SESSION['msg'])){
+                                ?>
+
+                                <div class="text-center p-t-12">
+							<span class="txt1">
+								<?=$_SESSION['msg'];?>
+							</span>
+
+                                </div>
+
+                        <?php
+                                session_destroy();
+                            }
+
+                        ?>
 
 						<div class="text-center p-t-12">
 							<span class="txt1">
